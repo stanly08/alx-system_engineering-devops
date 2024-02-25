@@ -1,0 +1,37 @@
+2. Secured and monitored web infrastructure
+
+
+1. User Accesses the Website:
+A user wants to access the website hosted at www.foobar.com securely.
+2. DNS Resolution:
+The user's computer sends a DNS query to resolve www.foobar.com.
+The DNS server returns the IP address associated with www.foobar.com.
+3. Server Setup:
+We have three servers: Server 1, Server 2, and Server 3.
+Each server is equipped with a firewall, SSL certificate, and monitoring client.
+Components:
+a. Firewalls:
+Firewalls are added to control and monitor incoming and outgoing traffic to and from the servers.
+They help enforce security policies, filter malicious traffic, and prevent unauthorized access to sensitive data.
+b. SSL Certificate:
+An SSL certificate is installed on the web server to enable HTTPS encryption.
+It ensures secure communication between the client's browser and the web server, protecting sensitive information from interception or tampering.
+c. Monitoring Clients:
+Monitoring clients are installed on each server to collect performance metrics, logs, and other relevant data.
+They send this data to a central monitoring service (e.g., Sumo Logic) for analysis and visualization.
+Specifics:
+Why Firewalls?: Firewalls add an additional layer of security by controlling traffic based on predefined rules, preventing unauthorized access and protecting against various cyber threats.
+HTTPS Traffic: Serving traffic over HTTPS encrypts data transmitted between the client and the server, ensuring confidentiality, integrity, and authenticity of the communication.
+Monitoring Purpose: Monitoring is used to track the health, performance, and security of the infrastructure and applications.
+Data Collection: Monitoring tools collect data through agents installed on servers, APIs, logs, and other sources. This data is then processed, analyzed, and presented to administrators for insights and decision-making.
+Monitoring Web Server QPS:
+To monitor the web server's Query Per Second (QPS), you can:
+Configure the monitoring client to collect metrics related to web server performance, such as requests per second.
+Use monitoring tools to visualize and analyze the collected data, identifying patterns, trends, and anomalies in the web server's QPS.
+Set up alerts to notify administrators when the QPS exceeds predefined thresholds, indicating potential performance issues or spikes in traffic.
+Issues:
+Terminating SSL at Load Balancer: Terminating SSL at the load balancer exposes decrypted traffic within the internal network, increasing the risk of data interception or tampering.
+Single MySQL Server for Writes: Having only one MySQL server capable of accepting writes creates a single point of failure for write operations, risking data loss or downtime in case of server failure.
+Uniform Servers: Having servers with identical components (database, web server, and application server) may lead to a lack of diversity in the infrastructure, increasing vulnerability to common mode failures or attacks targeting specific components. Introducing diversity in server configurations can enhance fault tolerance and resilience.
+
+

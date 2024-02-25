@@ -1,0 +1,20 @@
+3. Scale up
+
+
+README
+Application Server vs Web Server
+Introduction
+This document outlines the design and components of a web infrastructure using an application server and a web server. The infrastructure is designed to meet specific requirements, including the addition of a load balancer configured as a cluster.
+Infrastructure Design
+Components:
+Server: One physical or virtual server.
+Load Balancer (HAProxy): Configured to distribute traffic among the web servers in a cluster.
+Web Server: Handles incoming HTTP requests and serves static content.
+Application Server: Executes the application code and generates dynamic content.
+Database: A separate server for storing and managing application data.
+Specifics:
+Why Add a Load Balancer (HAProxy)?: The load balancer ensures high availability and scalability by distributing incoming traffic among multiple web servers. Configuring HAProxy as a cluster enhances fault tolerance and load distribution.
+Split Components with Their Own Server: Separating components onto individual servers improves security, scalability, and maintainability. The web server handles HTTP requests and serves static content, while the application server executes dynamic code. This separation allows for better resource allocation and isolation of concerns.
+Conclusion
+This infrastructure design provides a scalable and resilient solution for hosting web applications. By leveraging a load balancer, web server, application server, and database server, the architecture ensures high availability, performance, and security.
+

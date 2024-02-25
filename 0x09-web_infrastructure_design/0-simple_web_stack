@@ -1,0 +1,40 @@
+1. Distributed web infrastructure
+
+
+
+
+1. User Accesses the Website:
+A user wants to access the website hosted at www.foobar.com. They type the domain name into their web browser.
+2. DNS Resolution:
+The user's computer sends a DNS (Domain Name System) query to resolve www.foobar.com.
+The DNS server returns the IP address associated with www.foobar.com, which in this case is 8.8.8.8.
+3. Server Setup:
+There's a single physical or virtual server with IP address 8.8.8.8.
+The server is running a LAMP stack (Linux, Apache, MySQL, PHP/Python/Perl). For this design, we'll replace Apache with Nginx as the web server.
+4. Components:
+a. Web Server (Nginx):
+Nginx serves as the web server, handling HTTP requests from clients.
+It receives requests for web pages, static content, and forwards dynamic content requests to the application server.
+b. Application Server:
+This server executes the application codebase, which generates dynamic content.
+It could be running a framework like Flask, Django (Python), Express (Node.js), or any other suitable technology depending on the application requirements.
+c. Application Files:
+These are the files comprising the website/application codebase.
+They could be written in PHP, Python, Ruby, etc., depending on the chosen application server technology.
+d. Database (MySQL):
+MySQL is used to store and manage the website/application's data.
+It stores user accounts, content, configurations, etc.
+Specifics:
+Server: A server is a computer system that provides services or resources to other computers, known as clients, over a network.
+Domain Name: A domain name is a human-readable address that points to a specific IP address on the internet.
+DNS Record: The www record in www.foobar.com is a CNAME (Canonical Name) record, which is an alias for the domain's canonical name.
+Web Server Role: The web server's role is to handle HTTP requests from clients and serve web pages and other web resources.
+Application Server Role: The application server executes the application code and generates dynamic content in response to client requests.
+Database Role: The database stores and manages the website/application's data, providing storage and retrieval mechanisms.
+Communication: The server communicates with the user's computer over the internet using the HTTP protocol.
+Issues:
+Single Point of Failure (SPOF): Since all components are hosted on a single server, any failure in hardware, software, or network connectivity can lead to the entire website/application becoming inaccessible.
+Downtime during Maintenance: Any maintenance activities, such as deploying new code or updating server configurations, may require restarting the web server or other components, causing downtime for users accessing the website.
+Scalability: This infrastructure may struggle to handle large volumes of incoming traffic as it's limited by the resources (CPU, RAM, bandwidth) of a single server. Scaling horizontally (adding more servers) would be necessary for handling increased traffic efficiently.
+To address these issues, one could consider strategies such as implementing load balancing, introducing redundancy through server replication or failover mechanisms, and scaling out the infrastructure by adding more servers. Additionally, automation tools for deployment and configuration management can help minimize downtime during maintenance activities.
+

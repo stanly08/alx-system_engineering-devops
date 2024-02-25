@@ -1,0 +1,43 @@
+1. Distributed web infrastructure
+
+
+1. User Accesses the Website:
+A user wants to access the website hosted at www.foobar.com. They type the domain name into their web browser.
+2. DNS Resolution:
+The user's computer sends a DNS query to resolve www.foobar.com.
+The DNS server returns multiple IP addresses associated with www.foobar.com, corresponding to the servers behind the load balancer.
+3. Server Setup:
+We have three servers: Server 1, Server 2, and Server 3.
+Server 1 and Server 2 are application servers.
+Server 3 acts as a database server.
+We use Nginx as the web server, HAProxy as the load balancer, and MySQL as the database.
+Components:
+a. Web Server (Nginx):
+Nginx serves as the web server, handling HTTP requests from clients.
+It receives requests for web pages and forwards them to the application servers via the load balancer.
+b. Application Servers:
+Server 1 and Server 2 execute the application codebase, generating dynamic content.
+They handle requests from the web server and return responses to clients.
+c. Load Balancer (HAProxy):
+HAProxy distributes incoming requests across multiple application servers, ensuring load balancing and high availability.
+It is configured with a round-robin distribution algorithm, which evenly distributes requests among the available servers in a cyclic manner.
+d. Application Files:
+These are the files comprising the website/application codebase.
+They reside on Server 1 and Server 2.
+e. Database (MySQL):
+MySQL is used to store and manage the website/application's data.
+It runs on Server 3 and serves as the primary database.
+Specifics:
+Why Multiple Servers?: Adding multiple servers increases fault tolerance, scalability, and performance by distributing the workload and providing redundancy.
+Load Balancer: The load balancer ensures even distribution of traffic across multiple application servers, improving performance and availability.
+Round-Robin Algorithm: This distribution algorithm ensures that each server receives an equal share of requests, preventing any single server from being overwhelmed.
+Active-Active Setup: HAProxy enables an active-active setup, where all application servers are actively handling requests simultaneously.
+Primary-Replica Database Cluster: The primary-replica cluster consists of one primary (master) node and one or more replica (slave) nodes.
+Difference between Primary and Replica Nodes: The primary node handles write operations (insert, update, delete) and serves as the authoritative source of data. Replica nodes replicate data from the primary node and handle read operations, providing fault tolerance and scalability.
+Issues:
+Single Points of Failure (SPOFs): Each component (web server, application server, database) represents a potential SPOF. For example, if the database server fails, the entire application could become inaccessible.
+Security Issues: Lack of a firewall and HTTPS encryption can expose the infrastructure to various security threats, including unauthorized access, data breaches, and interception of sensitive information.
+No Monitoring: Without monitoring tools in place, it's challenging to detect and respond to performance issues, security breaches, and other operational issues in a timely manner.
+To address these issues, implementing redundancy, security measures (firewall, HTTPS), and monitoring tools (such as Nagios, Zabbix, or Prometheus) is essential. Additionally, regular backups and disaster recovery plans should be in place to mitigate the impact of potential failures.
+
+

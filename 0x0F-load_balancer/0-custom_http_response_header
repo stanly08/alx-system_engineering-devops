@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Install Nginx
+sudo apt-get update
+sudo apt-get install nginx -y
+
+# Set the custom header in Nginx configuration
+echo 'server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header X-Served-By $HOSTNAME;
+    }
+}' | sudo tee /etc/nginx/sites-available/default > /dev/null
+
+# Restart Nginx
+sudo systemctl restart nginx
+

@@ -1,37 +1,25 @@
-# Install Nginx package
-package { 'nginx':
-  ensure => installed,
+# Installs a Nginx server with custom HTTP header
+
+exec {'update':
+  provider => shell,
+  command  => 'sudo apt-get -y update',
+  before   => Exec['install Nginx'],
 }
 
-# Create a custom Nginx configuration file
-file { '/etc/nginx/sites-available/default':
-  ensure  => file,
-  content => "
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    server_name _;
-
-    location / {
-        proxy_pass http://127.0.0.1:5000;
-        proxy_set_header X-Served-By $::hostname;
-    }
-}",
-  notify  => Service['nginx'],
+exec {'install Nginx':
+  provider => shell,
+  command  => 'sudo apt-get -y install nginx',
+  before   => Exec['add_header'],
 }
 
-# Enable the custom configuration by linking it to sites-enabled
-file { '/etc/nginx/sites-enabled/default':
-  ensure => link,
-  target => '/etc/nginx/sites-available/default',
-  notify => Service['nginx'],
+exec { 'add_header':
+  provider    => shell,
+  environment => ["HOST=${hostname}"],
+  command     => 'sudo sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$HOST\";/" /etc/nginx/nginx.conf',
+  before      => Exec['restart Nginx'],
 }
 
-# Restart Nginx service when configuration changes
-service { 'nginx':
-  ensure    => running,
-  enable    => true,
-  subscribe => File['/etc/nginx/sites-available/default'],
+exec { 'restart Nginx':
+  provider => shell,
+  command  => 'sudo service nginx restart',
 }
-

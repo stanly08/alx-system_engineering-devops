@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Fix Nginx not listening on port 80
+
+# Stop Nginx if it's already running
+service nginx stop
+
+# Start Nginx and force it to listen on port 80
+/usr/sbin/nginx -g "daemon off;" -c /etc/nginx/nginx.conf

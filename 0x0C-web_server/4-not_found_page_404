@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Install Nginx if not already installed
+apt-get update
+apt-get install -y nginx
+
+# Configure Nginx custom 404 page
+cat > /etc/nginx/sites-available/default << EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+        return 200 "Ceci n'est pas une page\n";
+    }
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
+
+# Restart Nginx
+service nginx start
